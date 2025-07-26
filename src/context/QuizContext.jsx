@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useActionState, useContext, useReducer } from "react";
 
 const initialState = {
   currentQuestion: 0,
@@ -7,6 +7,7 @@ const initialState = {
   quizStarted: false,
   isAnswered: false,
   difficulty: "medium",
+  totalScore: 0,
 };
 
 function quizReducer(state, action) {
@@ -22,12 +23,18 @@ function quizReducer(state, action) {
         ...state,
         quizStarted: true,
       };
-    case "quiz/newAnswer":
+
+    case "quiz/newAnswer": {
+      const { points, isCorrect, indexNumber } = action.payload;
+      console.log("i am points", points, isCorrect);
+
       return {
         ...state,
-        answer: action.payload,
+        answer: indexNumber,
         isAnswered: true,
+        totalScore: isCorrect ? state.totalScore + points : state.totalScore,
       };
+    }
 
     case "quiz/NextQuestion":
       return {
@@ -43,7 +50,15 @@ const QuizContext = createContext();
 
 function QuizProvider({ children }) {
   const [
-    { currentQuestion, score, answer, quizStarted, isAnswered,difficulty },
+    {
+      currentQuestion,
+      score,
+      answer,
+      quizStarted,
+      isAnswered,
+      difficulty,
+      totalScore,
+    },
     dispatch,
   ] = useReducer(quizReducer, initialState);
 
@@ -56,7 +71,8 @@ function QuizProvider({ children }) {
         quizStarted,
         dispatch,
         isAnswered,
-        difficulty
+        difficulty,
+        totalScore,
       }}
     >
       {children}

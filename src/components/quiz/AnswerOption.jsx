@@ -9,8 +9,9 @@ import {
   FaRegCircleCheck,
   FaRegCircleXmark,
 } from "react-icons/fa6";
+import Question from "./Question";
 
-function AnswerOption({ children, indexNumber, correctOption }) {
+function AnswerOption({ children, indexNumber, correctOption, questions }) {
   const { answer, dispatch } = useQuiz();
 
   const hasAnswered = answer !== null;
@@ -37,10 +38,21 @@ function AnswerOption({ children, indexNumber, correctOption }) {
     );
   }
 
+  // get the points of each question
+
+  const points = questions[indexNumber].points;
+
+  function handleAnswer() {
+    dispatch({
+      type: "quiz/newAnswer",
+      payload: { isCorrect, points, indexNumber },
+    });
+  }
+
   return (
     <button
+      onClick={handleAnswer}
       disabled={hasAnswered}
-      onClick={() => dispatch({ type: "quiz/newAnswer", payload: indexNumber })}
       className={`flex justify-between w-full text-stone-100 border border-indigo-500 rounded-md items-center p-2 ${bgColor}`}
     >
       {children}
