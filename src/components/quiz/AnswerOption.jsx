@@ -12,11 +12,13 @@ import {
 import Question from "./Question";
 
 function AnswerOption({ children, indexNumber, correctOption, questions }) {
-  const { answer, dispatch } = useQuiz();
+  const { answer, currentQuestion, dispatch } = useQuiz();
 
   const hasAnswered = answer !== null;
   const isSelected = answer === indexNumber;
   const isCorrect = indexNumber === correctOption;
+
+  const isLastQuestion = currentQuestion === questions.length - 1;
 
   let bgColor = "";
   let icon = <FaRegCircle className="text-indigo-500" />;
@@ -45,7 +47,7 @@ function AnswerOption({ children, indexNumber, correctOption, questions }) {
   function handleAnswer() {
     dispatch({
       type: "quiz/newAnswer",
-      payload: { isCorrect, points, indexNumber },
+      payload: { isCorrect, points, indexNumber, questions },
     });
   }
 

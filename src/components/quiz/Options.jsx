@@ -1,10 +1,8 @@
-import { useState } from "react";
 import { quizQuestions } from "../../data/quizQuestions";
 import { useQuiz } from "../../context/QuizContext";
 import AnswerOption from "./AnswerOption";
 
 function Options({ questions }) {
-  const [click, setClick] = useState(false);
 
   const { currentQuestion } = useQuiz();
 

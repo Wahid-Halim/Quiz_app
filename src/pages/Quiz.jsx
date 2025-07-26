@@ -13,9 +13,11 @@ import Options from "../components/quiz/Options";
 import Button from "../components/common/Button";
 import { useQuiz } from "../context/QuizContext";
 import Score from "../components/common/Score";
+import FinishScreen from "../components/quiz/FinishScrEen";
 
 function Quiz() {
-  const { currentQuestion, dispatch, isAnswered, difficulty } = useQuiz();
+  const { currentQuestion, dispatch, isAnswered, difficulty, status } =
+    useQuiz();
 
   let questions;
 
@@ -27,20 +29,28 @@ function Quiz() {
     dispatch({ type: "quiz/NextQuestion" });
   }
 
+  console.log("in Quiz", status);
   return (
     <main className="w-screen h-screen bg-slate-900">
-      <div className="max-w-[500px] m-auto flex flex-col">
-        <Header />
-        <DashedProgress current={currentQuestion} total={10} />
-        <Score questions={questions} />
-        <Question questions={questions} />
-        <Options questions={questions} />
-        {isAnswered && (
-          <Button className="self-end" onClick={handleNextQuestion}>
-            Next Question
-          </Button>
-        )}
-      </div>
+      {status === "finished" ? (
+        <FinishScreen questions={questions} />
+      ) : (
+        <div className="max-w-[500px] m-auto flex flex-col">
+          <Header questions={questions} />
+          <DashedProgress
+            current={currentQuestion + 1}
+            total={questions.length}
+          />
+          <Score questions={questions} />
+          <Question questions={questions} />
+          <Options questions={questions} />
+          {isAnswered && (
+            <Button className="self-end" onClick={handleNextQuestion}>
+              Next Question
+            </Button>
+          )}
+        </div>
+      )}
     </main>
   );
 }

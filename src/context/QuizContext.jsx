@@ -1,6 +1,7 @@
 import { createContext, useActionState, useContext, useReducer } from "react";
 
 const initialState = {
+  status: "",
   currentQuestion: 0,
   score: 0,
   answer: null,
@@ -13,6 +14,7 @@ const initialState = {
 function quizReducer(state, action) {
   switch (action.type) {
     case "quiz/difficulty":
+      console.log(action.payload);
       return {
         ...state,
         difficulty: action.payload,
@@ -25,14 +27,16 @@ function quizReducer(state, action) {
       };
 
     case "quiz/newAnswer": {
-      const { points, isCorrect, indexNumber } = action.payload;
-      console.log("i am points", points, isCorrect);
+      const { points, isCorrect, indexNumber, questions } = action.payload;
+      const isLastQuestion = state.currentQuestion === questions.length - 1;
+      console.log(isLastQuestion, "hello", state.status);
 
       return {
         ...state,
         answer: indexNumber,
         isAnswered: true,
         totalScore: isCorrect ? state.totalScore + points : state.totalScore,
+        status: isLastQuestion ? "finished" : state.status,
       };
     }
 
@@ -42,6 +46,12 @@ function quizReducer(state, action) {
         currentQuestion: state.currentQuestion + 1,
         answer: null,
         isAnswered: false,
+      };
+
+    case "quiz/restart":
+      return {
+        ...state,
+        ...initialState,
       };
   }
 }
@@ -58,6 +68,7 @@ function QuizProvider({ children }) {
       isAnswered,
       difficulty,
       totalScore,
+      status,
     },
     dispatch,
   ] = useReducer(quizReducer, initialState);
@@ -73,6 +84,7 @@ function QuizProvider({ children }) {
         isAnswered,
         difficulty,
         totalScore,
+        status,
       }}
     >
       {children}
