@@ -1,9 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useQuiz } from "../../context/QuizContext";
 
-import { useNavigate } from "react-router-dom";
-import { useQuiz } from "../context/QuizContext";
-
 function FinishScreen({ questions }) {
   const { totalScore, dispatch, currentQuestion, difficulty } = useQuiz();
   const navigate = useNavigate();
