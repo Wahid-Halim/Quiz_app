@@ -56,6 +56,9 @@ function SelectDifficulty() {
         <option className="bg-indigo-700 text-indigo-100" value="hard">
           Hard
         </option>
+        <option className="bg-indigo-700 text-indigo-100" value="all-levels">
+          All Levels
+        </option>
       </select>
 
       <Button onClick={handleStartQuiz}>Start Quiz</Button>

@@ -2,6 +2,7 @@ import {
   easyQuestions,
   mediumQuestions,
   hardQuestions,
+  quizQuestions,
 } from "../data/quizQuestions";
 
 import Header from "../components/common/Header";
@@ -24,12 +25,12 @@ function Quiz() {
   if (difficulty === "hard") questions = hardQuestions;
   if (difficulty === "medium") questions = mediumQuestions;
   if (difficulty === "easy") questions = easyQuestions;
+  if (difficulty === "all-levels") questions = quizQuestions;
 
   function handleNextQuestion() {
     dispatch({ type: "quiz/NextQuestion" });
   }
 
-  console.log("in Quiz", status);
   return (
     <main className="w-screen h-screen bg-slate-900">
       {status === "finished" ? (

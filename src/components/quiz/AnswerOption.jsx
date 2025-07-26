@@ -1,8 +1,4 @@
-// import { FaReceipt, FaRegCircleCheck } from "react-icons/fa6";
-
-// import { FaRegCircle } from "react-icons/fa6";
 import { useQuiz } from "../../context/QuizContext";
-// import { FaRegCircleXmark } from "react-icons/fa6";
 
 import {
   FaRegCircle,
@@ -12,6 +8,7 @@ import {
 import Question from "./Question";
 
 function AnswerOption({ children, indexNumber, correctOption, questions }) {
+  console.log(questions, "ques");
   const { answer, currentQuestion, dispatch } = useQuiz();
 
   const hasAnswered = answer !== null;
@@ -42,7 +39,7 @@ function AnswerOption({ children, indexNumber, correctOption, questions }) {
 
   // get the points of each question
 
-  const points = questions[indexNumber].points;
+  const points = questions[currentQuestion].points;
 
   function handleAnswer() {
     dispatch({

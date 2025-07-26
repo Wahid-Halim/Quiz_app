@@ -1,19 +1,27 @@
 import { useNavigate } from "react-router-dom";
 import { useQuiz } from "../../context/QuizContext";
+import Button from "../common/Button";
 
 function FinishScreen({ questions }) {
-  const { totalScore, dispatch, currentQuestion, difficulty } = useQuiz();
+  const { totalScore, dispatch, difficulty } = useQuiz();
+
   const navigate = useNavigate();
 
   if (!questions || questions.length === 0) return null;
 
-  const maxPoints = questions.length * 10;
-  const accuracy = Math.min(100, Math.round((totalScore / maxPoints) * 100));
+  const sumScore = questions.reduce((acc, cur) => cur.points + acc, 0);
+
+  const accuracy = Math.min(100, Math.round((totalScore / sumScore) * 100));
 
   const handleRestart = () => {
     dispatch({ type: "quiz/restart" });
     navigate("/home/quiz");
   };
+
+  function handleGoHome() {
+    dispatch({ type: "quiz/GoHome" });
+    navigate("/home");
+  }
 
   return (
     <div className="min-h-screen bg-slate-950 flex items-center justify-center text-white px-4">
@@ -28,7 +36,7 @@ function FinishScreen({ questions }) {
             {difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}
           </p>
           <p>
-            <strong>Total Score:</strong> {totalScore} / {maxPoints}
+            <strong>Total Score:</strong> {totalScore} / {sumScore}
           </p>
           <p>
             <strong>Accuracy:</strong> {accuracy}%
@@ -36,12 +44,15 @@ function FinishScreen({ questions }) {
         </div>
 
         <div className="flex justify-center gap-4 mt-4">
-          <button
+          <Button
             onClick={handleRestart}
             className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md transition duration-300"
           >
-            🔁 Restart Quiz
-          </button>
+            Restart Quiz
+          </Button>
+          <Button onClick={handleGoHome} className="bg-yellow-500">
+            Go Home
+          </Button>
         </div>
       </div>
     </div>
