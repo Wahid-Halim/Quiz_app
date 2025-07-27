@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import AppLayout from "./layout/AppLayout";
 import Home from "./pages/Home";
-import QuizResult from "./pages/QuizResult";
 import Quiz from "./pages/Quiz";
 import QuizProvider from "./context/QuizContext";
+import QuizReview from "./pages/QuizReview";
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
 
             <Route path="/home" element={<Home />} />
             <Route path="/home/quiz" element={<Quiz />} />
-            <Route path="quiz-result" element={<QuizResult />} />
+            <Route path="/home/quiz/quiz-summary" element={<QuizReview />} />
           </Route>
         </Routes>
       </BrowserRouter>

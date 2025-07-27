@@ -1,4 +1,5 @@
 import { createContext, useContext, useReducer } from "react";
+import Options from "../components/quiz/Options";
 
 const initialState = {
   status: "active",
@@ -9,6 +10,7 @@ const initialState = {
   isAnswered: false,
   difficulty: "easy",
   totalScore: 0,
+  answers: [],
 };
 
 function quizReducer(state, action) {
@@ -27,7 +29,8 @@ function quizReducer(state, action) {
       };
 
     case "quiz/newAnswer": {
-      const { points, isCorrect, indexNumber, questions } = action.payload;
+      const { points, isCorrect, indexNumber, questions, question } =
+        action.payload;
       const isLastQuestion = state.currentQuestion === questions.length - 1;
 
       return {
@@ -36,6 +39,15 @@ function quizReducer(state, action) {
         isAnswered: true,
         totalScore: isCorrect ? state.totalScore + points : state.totalScore,
         status: isLastQuestion ? "finished" : state.status,
+        answers: [
+          ...state.answers,
+          {
+            question,
+            options: question.options,
+            correctOption: question.correctOption,
+            userAnswerIndex: indexNumber,
+          },
+        ],
       };
     }
 
@@ -72,6 +84,7 @@ function QuizProvider({ children }) {
       difficulty,
       totalScore,
       status,
+      answers,
     },
     dispatch,
   ] = useReducer(quizReducer, initialState);
@@ -88,6 +101,7 @@ function QuizProvider({ children }) {
         difficulty,
         totalScore,
         status,
+        answers,
       }}
     >
       {children}

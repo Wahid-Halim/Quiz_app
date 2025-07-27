@@ -11,6 +11,7 @@ function Options({ questions }) {
       <div className="flex flex-col gap-y-2">
         {questions[currentQuestion].options.map((answerOption, index) => (
           <AnswerOption
+
             questions={questions}
             key={answerOption}
             correctOption={questions[currentQuestion].correctOption}

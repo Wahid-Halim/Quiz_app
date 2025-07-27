@@ -46,7 +46,7 @@ function Quiz() {
           <Question questions={questions} />
           <Options questions={questions} />
           {isAnswered && (
-            <Button className="self-end" onClick={handleNextQuestion}>
+            <Button className="self-end rounded-sm" onClick={handleNextQuestion}>
               Next Question
             </Button>
           )}

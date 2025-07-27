@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useQuiz } from "../../context/QuizContext";
 import Button from "../common/Button";
+import AnswerReview from "./AnswersReview";
 
 function FinishScreen({ questions }) {
   const { totalScore, dispatch, difficulty } = useQuiz();
@@ -21,6 +22,10 @@ function FinishScreen({ questions }) {
   function handleGoHome() {
     dispatch({ type: "quiz/GoHome" });
     navigate("/home");
+  }
+
+  function handleSummary() {
+    navigate("quiz-summary");
   }
 
   return (
@@ -54,6 +59,7 @@ function FinishScreen({ questions }) {
             Go Home
           </Button>
         </div>
+        <Button onClick={handleSummary}>Answer Summary</Button>
       </div>
     </div>
   );

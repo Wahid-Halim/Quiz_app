@@ -7,7 +7,7 @@ function Score({ questions }) {
   const sumScore = questions.reduce((acc, cur) => cur.points + acc, 0);
 
   return (
-    <div className="text-green-500">{`score ${totalScore}/${sumScore}`}</div>
+    <div className="text-stone-200 font-jetBrains ml-auto mt-3">{`score ${totalScore}/${sumScore}`}</div>
   );
 }
 
