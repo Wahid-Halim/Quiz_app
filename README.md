@@ -10,7 +10,6 @@ A modern quiz application built with **React** and **Tailwind CSS**, designed fo
 - 💻 Responsive design using Tailwind CSS
 - 🌙 Dark theme with `bg-slate-950` for a sleek UI
 
+## Live Preview
 
-live preview:
-
-[text](https://react-quiz-wahid.netlify.app/home)
+👉 [Click here to view the live demo](https://react-quiz-wahid.netlify.app/home)
