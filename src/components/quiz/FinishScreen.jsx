@@ -31,7 +31,7 @@ function FinishScreen({ questions }) {
   return (
     <div className="min-h-screen bg-slate-950 flex items-center justify-center text-white px-4">
       <div className="bg-slate-900 shadow-xl rounded-2xl p-8 max-w-md w-full text-center space-y-6">
-        <h2 className="text-3xl font-bold text-green-400">
+        <h2 className="text-2xl font-bold text-green-400">
           🎉 Quiz Completed!
         </h2>
 

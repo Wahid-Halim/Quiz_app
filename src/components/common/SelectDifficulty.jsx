@@ -28,7 +28,7 @@ export default function SelectDifficulty() {
 
   return (
     <div className="relative flex flex-col items-center gap-4">
-      <label className="text-indigo-300 font-medium text-lg font-jetBrains">
+      <label className="text-indigo-300 font-medium text-base font-jetBrains">
         Select difficulty:
       </label>
 

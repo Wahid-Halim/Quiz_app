@@ -5,36 +5,53 @@ function AnswerReview() {
   const { answers } = useQuiz();
 
   return (
-    <div className="text-white space-y-4 max-w-[500px] m-auto">
-      <Link to="/" className="text-blue-500">
-        {"<--"} Go back home
-      </Link>
-      <h2 className="text-2xl font-bold mb-4">Review Answers</h2>
-      {answers.map((a, i) => (
-        <div key={i} className="bg-slate-800 p-4 rounded-md">
-          <p className="font-semibold mb-2">
-            Q{i + 1}: {a.question.question}
-          </p>
-          <ul>
-            {a.options.map((opt, idx) => (
-              <li
-                key={idx}
-                className={`p-2 rounded-md my-1 ${
-                  idx === a.correctOption
-                    ? "bg-green-700"
-                    : idx === a.userAnswerIndex
-                    ? "bg-red-700"
-                    : "bg-slate-700"
-                }`}
-              >
-                {opt}
-                {idx === a.correctOption && " ✅"}
-                {idx === a.userAnswerIndex && idx !== a.correctOption && " ❌"}
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
+    <div className="min-h-screen bg-slate-950 py-10 px-4 text-white">
+      <div className="max-w-3xl mx-auto space-y-6">
+        <Link
+          to="/"
+          className="inline-block text-blue-400 hover:text-blue-300 transition"
+        >
+          ⬅ Go back home
+        </Link>
+
+        <h2 className="text-3xl font-bold border-b border-slate-700 pb-2">
+          Review Answers
+        </h2>
+
+        {answers.map((a, i) => (
+          <div
+            key={i}
+            className="bg-slate-800 p-5 rounded-xl shadow-md border border-slate-700"
+          >
+            <p className="font-semibold text-lg mb-3 text-slate-200">
+              Q{i + 1}: {a.question.question}
+            </p>
+            <ul className="space-y-2">
+              {a.options.map((opt, idx) => {
+                const isCorrect = idx === a.correctOption;
+                const isUserWrong = idx === a.userAnswerIndex && !isCorrect;
+
+                return (
+                  <li
+                    key={idx}
+                    className={`p-3 rounded-md transition-all font-medium ${
+                      isCorrect
+                        ? "bg-emerald-500 text-white"
+                        : isUserWrong
+                        ? "bg-rose-600 text-white"
+                        : "bg-slate-700 text-slate-300"
+                    }`}
+                  >
+                    {opt}
+                    {isCorrect && " ✅"}
+                    {isUserWrong && " ❌"}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

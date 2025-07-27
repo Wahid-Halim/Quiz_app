@@ -6,7 +6,7 @@ export default function DashedProgress({ current, total }) {
       {segments.map((filled, idx) => (
         <div
           key={idx}
-          className={`h-2 flex-1 mt-2 rounded-sm ${
+          className={`h-2 flex-1 mt-2  ${
             filled ? "bg-indigo-600" : "bg-slate-600"
           }`}
         />
